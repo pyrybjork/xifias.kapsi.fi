@@ -4,13 +4,15 @@ import logo from './logo.svg';
 import './App.css';
 
 import Home from "./pages/home";
+import Navigation from "./components/navigation";
 
 function App() {
   return (
     <Router>
+      <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/test" element={<p>test</p> } />
+        <Route path="/test" element={<p>Test</p> } />
         <Route path="*" element={<p>not found</p> } />
       </Routes>
     </Router>
