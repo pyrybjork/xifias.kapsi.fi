@@ -1,0 +1,48 @@
+.rain_map {
+    width: 100%;
+    height: calc(100vh - 60px);
+    z-index: 0;
+}
+
+.controls {
+    position: fixed;
+    width: calc(100% - 40px);
+    padding: 20px;
+    z-index: 2;
+    bottom: 20px;
+    display: inline-flex;
+    align-content: center;
+    justify-content: space-between;
+    margin: 0;
+    left: 0;
+    
+}
+
+.controls div {
+    padding: 20px 40px;
+    background-color: #1a1e24;
+    border-radius: 40px;
+    font-size: larger;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    font-size: x-large;
+}
+
+.card {
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: whitesmoke;
+    width: fit-content;
+    border-radius: 40px;
+}
