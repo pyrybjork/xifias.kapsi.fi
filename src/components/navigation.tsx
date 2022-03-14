@@ -6,10 +6,6 @@ import React, { useState } from 'react';
 const Navigation: React.FunctionComponent = () => {
   const [expanded, setExpanded] = useState(false);
 
-  function expand() {
-    setExpanded(true);
-  }
-
   function close() {
     setExpanded(false);
   }

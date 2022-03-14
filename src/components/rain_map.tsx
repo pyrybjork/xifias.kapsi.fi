@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, WMSTileLayer, LayersControl } from 'react-leaflet'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { MdLegendToggle } from 'react-icons/md';
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import 'proj4leaflet';
 import 'proj4';
 import * as L from 'leaflet';
@@ -31,7 +31,9 @@ const RainMap: React.FunctionComponent = () => {
 
     var wmsLayers: any = [];
 
-    for (var i = 0; i < 12; i++) {
+    var i;
+
+    for (i = 0; i < 12; i++) {
         wmsLayers.push({
             info: `Ennuste ${forecastTime.toLocaleString()}`,
             time: forecastTime.toISOString(),
@@ -40,7 +42,7 @@ const RainMap: React.FunctionComponent = () => {
         forecastTime.setHours(forecastTime.getHours() + 1);
     }
 
-    for (var i = 0; i < 8; i++) {
+    for (i = 0; i < 8; i++) {
         let startTime = new Date();
         startTime.setTime(radarTime.getTime());
         startTime.setHours(radarTime.getHours() - 12);
@@ -88,7 +90,7 @@ const RainMap: React.FunctionComponent = () => {
                     </LayersControl.BaseLayer>
                     {
                         wmsLayers.map((layer: any, index: number) => (
-                            <LayersControl.Overlay checked={selected == index? true: false} name={layer.time}>
+                            <LayersControl.Overlay checked={selected === index? true: false} name={layer.time}>
                                 <WMSTileLayer {...layer.options} />
                             </LayersControl.Overlay>
                         ))
