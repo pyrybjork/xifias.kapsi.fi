@@ -7,11 +7,15 @@ interface StationElementRowProps {
     tday: string
 }
 
-const SnowStationElementRow: React.FunctionComponent<StationElementRowProps> = ({timeString, snow, lastSnow, tday}: StationElementRowProps) => {
+const SnowStationElementRow: React.FunctionComponent<StationElementRowProps> = ({ timeString, snow, lastSnow, tday}: StationElementRowProps) => {
     const time = new Date(timeString);
-    const difference = Number.parseInt(lastSnow) - Number.parseInt(snow);
+    const difference = Number.parseInt(snow) - Number.parseInt(lastSnow);
+
     return (
-        <p>{time.toLocaleDateString()}: Lumensyvyys{'\u00A0'}{snow.slice(0, -2)}cm{'\u00A0'}{difference == 0? '': `${difference > 0? '+': ''}${difference}`}, Lämpötila{'\u00A0'}{tday}°C</p>
+        <div>
+            <h5>{time.toLocaleDateString()}</h5>
+            Lumensyvyys{'\u00A0'}{snow.slice(0, -2)}cm{difference === 0? '' : `\u00A0${difference > 0? '+': ''}${difference}`}, Lämpötila{'\u00A0'}{tday === 'NaN'? '[ei\u00A0saatavilla]' : `${tday}°C`}
+        </div>
     )
 };
 

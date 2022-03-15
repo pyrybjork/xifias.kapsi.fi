@@ -81,7 +81,7 @@ const RainMap: React.FunctionComponent = () => {
     return ( 
         <div>
             <MapContainer className='rain_map' crs={crs} bounds={[[50, 20], [80, 30]]} center={[67, 25]} zoom={3}>
-                <LayersControl position="topright">
+                <LayersControl>
                     <LayersControl.BaseLayer checked name="MML: Peruskartta">
                         <TileLayer
                             attribution='Kartat: MML, Tutkat: FMI'

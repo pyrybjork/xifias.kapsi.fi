@@ -1,0 +1,66 @@
+.stationCard {
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 30px;
+    width: calc(100% - 50px);
+    margin: auto;
+    padding: 5px 15px 65px 15px;
+    position: relative;
+}
+
+.stationTitle {
+    text-align: center;
+}
+
+.search {
+    margin: 0 10px 20px 10px;
+}
+.stationTimeseries h5 {
+    margin-bottom: 0;
+}
+
+.stationButton {
+    color: whitesmoke;
+    background-color: #1a1e24;
+    padding: 10px 15px 10px 15px;
+    width: fit-content;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 10px;
+}
+
+.left {
+    left: 10px;
+    text-align: left;
+}
+
+.right {
+    right: 10px;
+    text-align: right;
+}
+
+.stationIndicators {
+    bottom: 0;
+    width: fit-content;
+    margin: auto;
+    display: flex;
+    margin-top: 20px;
+    height: fit-content;
+}
+
+.stationIndicator {
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.bigCircle {
+    background-color: lightslategray;
+    height: 20px;
+    width: 20px;
+}
+
+.smallCircle {
+    background-color: lightgray;
+    height: 15px;
+    width: 15px;
+}

@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { assert } from 'console';
+import fmisid from '../data/fmisid'
+import { RiCreativeCommonsSaLine } from 'react-icons/ri';
 
 interface StationProps {
-    stationId: string
+    stationId: string,
+    oldSnow: number
 }
 
-const SnowStationTitle: React.FunctionComponent<StationProps> = ({stationId}: StationProps) => {
+const SnowStationTitle: React.FunctionComponent<StationProps> = ({stationId, oldSnow}: StationProps) => {
     const parser = new DOMParser();
 
-    const [stationTitle, setStationTitle] = useState('');
-    const [firstRender, setFirstRender] = useState(true);
+    const stationIdTyped = Number.parseInt(stationId) as keyof typeof fmisid;
+
+    const [snow, setSnow] = useState('NaN');
+    const [temp, setTemp] = useState('NaN');
+    const [lastStationId, setLastStationId] = useState('');
 
     var starttime = new Date()
 
     useEffect(() => { 
-        if (firstRender) {
-            setFirstRender(false);
+        if (stationId !== lastStationId) {
+            setLastStationId(stationId);
             axios.get('https://opendata.fmi.fi/wfs', {
                 params: {
                     service: 'WFS',
@@ -33,18 +38,18 @@ const SnowStationTitle: React.FunctionComponent<StationProps> = ({stationId}: St
                 const xmlDoc = parser.parseFromString(response.data, "text/xml");
                 const x = xmlDoc.getElementsByTagName("BsWfs:BsWfsElement");
 
-                console.log(x.length)
-
                 const snow = x[0].childNodes[7].childNodes[0].nodeValue;
                 const temp = x[1].childNodes[7].childNodes[0].nodeValue;
 
-                setStationTitle(`${stationId} ${snow}cm | ${temp}°C`)
+                if (snow != null) { setSnow(snow); }
+                if (temp != null) { setTemp(temp); }
             })
+            
         }
     });
 
     return (
-        <h3 className='stationTitle'>{stationTitle}</h3>
+        <h3 className='stationTitle'>{fmisid[stationIdTyped]} {snow}cm{'\u00A0|\u00A0'}{Number.parseInt(snow) - oldSnow >= 0? '+': ''}{Number.parseInt(snow) - oldSnow}cm{'\u00A0|\u00A0'}{temp}</h3>
     )
 };
 

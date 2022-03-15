@@ -12,14 +12,15 @@ const SnowStation: React.FunctionComponent<StationProps> = ({stationId}: Station
     const parser = new DOMParser();
 
     const [stationDetailsData, setStationDetailsData] = useState({});
-    const [firstRender, setFirstRender] = useState(true);
+    const [lastStationId, setLastStationId] = useState('');
+    const [oldSnow, setOldSnow] = useState(0);
 
     var starttime = new Date()
     starttime.setDate(starttime.getDate() - 5);
 
     useEffect(() => { 
-        if (firstRender) {
-            setFirstRender(false);
+        if (stationId !== lastStationId) {
+            setLastStationId(stationId);
             axios.get('https://opendata.fmi.fi/wfs', {
                 params: {
                     service: 'WFS',
@@ -39,12 +40,20 @@ const SnowStation: React.FunctionComponent<StationProps> = ({stationId}: Station
                     const key = x[i].childNodes[5].childNodes[0].nodeValue;
 
                     if (time != null && key != null) {
-                        if (i % 2 == 0) {
+                        if (i % 2 === 0) {
                             stationData[time] = {};
                         }
 
                         stationData[time][key] = x[i].childNodes[7].childNodes[0].nodeValue;  
                     } 
+                }
+
+                const newOldSnow = x[0].childNodes[7].childNodes[0].nodeValue;
+
+                console.log(newOldSnow)
+
+                if (newOldSnow != null) {
+                    setOldSnow(Number.parseInt(newOldSnow))
                 }
                 
                 setStationDetailsData(stationData);
@@ -53,8 +62,9 @@ const SnowStation: React.FunctionComponent<StationProps> = ({stationId}: Station
     });
 
     return (
+        
         <div className="station">
-            <SnowStationTitle stationId={stationId} />
+            <SnowStationTitle stationId={stationId} oldSnow={oldSnow}/>
             <SnowStationElement stationData={stationDetailsData}></SnowStationElement>
         </div>
     )
