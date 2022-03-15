@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-.search {
+.customStation {
     margin: 0 10px 20px 10px;
 }
 .stationTimeseries h5 {
@@ -63,4 +63,33 @@
     background-color: lightgray;
     height: 15px;
     width: 15px;
+    font-size: small;
+}
+
+.customSearch {
+    background-color: #1a1e24;
+    border-radius: 30px;
+    padding: 15px 20px;
+    width: fit-content;
+    margin: auto;
+    color: whitesmoke;
+    display: flex;
+}
+
+.customSearch > * {
+    margin: 0 10px;
+}
+
+.searchBar {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid whitesmoke;
+    color: whitesmoke;
+}
+
+.searchButton {
+    font-size: x-large;
+    color: whitesmoke;
+    border: 0;
+    background-color: transparent;
 }

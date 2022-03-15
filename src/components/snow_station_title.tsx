@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import fmisid from '../data/fmisid'
-import { RiCreativeCommonsSaLine } from 'react-icons/ri';
 
 interface StationProps {
     stationId: string,
@@ -49,7 +48,7 @@ const SnowStationTitle: React.FunctionComponent<StationProps> = ({stationId, old
     });
 
     return (
-        <h3 className='stationTitle'>{fmisid[stationIdTyped]} {snow}cm{'\u00A0|\u00A0'}{Number.parseInt(snow) - oldSnow >= 0? '+': ''}{Number.parseInt(snow) - oldSnow}cm{'\u00A0|\u00A0'}{temp}</h3>
+        <h3 className='stationTitle'>{fmisid[stationIdTyped]} {snow}cm{'\u00A0|\u00A0'}{Number.parseInt(snow) - oldSnow >= 0? '+': ''}{Number.parseInt(snow) - oldSnow}cm{'\u00A0|\u00A0'}{temp}°C</h3>
     )
 };
 

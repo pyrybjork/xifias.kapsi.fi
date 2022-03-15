@@ -50,8 +50,6 @@ const SnowStation: React.FunctionComponent<StationProps> = ({stationId}: Station
 
                 const newOldSnow = x[0].childNodes[7].childNodes[0].nodeValue;
 
-                console.log(newOldSnow)
-
                 if (newOldSnow != null) {
                     setOldSnow(Number.parseInt(newOldSnow))
                 }
