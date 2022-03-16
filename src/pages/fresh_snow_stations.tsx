@@ -132,6 +132,9 @@ const FreshSnowStations: React.FunctionComponent = () => {
           ))}
         </div>
       </div>
+      <div className='imageCard'>
+        <img src="https://api.met.no/weatherapi/radar/2.0/?type=5level_reflectivity&amp;area=nordic&amp;content=animation" alt="met no radar image" />
+      </div>
     </div> 
   );
 };

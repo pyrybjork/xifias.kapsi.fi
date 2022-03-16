@@ -90,7 +90,7 @@ const RainMap: React.FunctionComponent = () => {
                     </LayersControl.BaseLayer>
                     {
                         wmsLayers.map((layer: any, index: number) => (
-                            <LayersControl.Overlay checked={selected === index? true: false} name={layer.time}>
+                            <LayersControl.Overlay key={index} checked={selected === index? true: false} name={layer.time}>
                                 <WMSTileLayer {...layer.options} />
                             </LayersControl.Overlay>
                         ))
