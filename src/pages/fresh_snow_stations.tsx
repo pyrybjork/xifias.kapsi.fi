@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { FaMap } from 'react-icons/fa';
-import { AiOutlinePlus } from 'react-icons/ai';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { MdClear, MdSearch } from 'react-icons/md';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 import "./fresh_snow_stations.css";
 import fmisid from '../data/fmisid'
 
@@ -12,15 +12,30 @@ import SnowStation from "../components/snow_station";
 const FreshSnowStations: React.FunctionComponent = () => {
   const [selected, setSelected] = useState(0);
   const [query, setQuery] = useState('');
-  const [customContent, setCustomContent] = useState(<></>);
+  const [customMessage, setCustomMessage] = useState('Lisää valitsemasi havaintoasema. Voit poistaa havaintoasemia oikean yläkulman rastista. Muutoksesi tallenetaan evästeeseen.');
+  
+  const stations  = localStorage.getItem( 'stations' ) || ['101885', '107081', '101950', '101914', '101990', '101987', 'custom'].join(',');
+  
+  const [id_list, set_id_list] = useState(stations.split(','));
 
-  const id_list = ['101885', '107081', '101950', '101914', '101990', '101987', 'custom'];
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   var options: any = [];
 
   Object.entries(fmisid).forEach((key, index) => {
     options.push({value: key[0], label: key[1]});
   })
+
+  function updateCookie() {
+    localStorage.setItem( 'stations', id_list.join(','))
+  }
+
+  function resetStations() {
+    localStorage.removeItem('stations');
+    set_id_list(['101885', '107081', '101950', '101914', '101990', '101987', 'custom']);
+    setSelected(6);
+    forceUpdate();
+  }
 
   function next() {
     var new_selected = selected + 1;
@@ -40,6 +55,16 @@ const FreshSnowStations: React.FunctionComponent = () => {
     }
   }
 
+  function removeCurrent() {
+    if (selected < id_list.length - 1) {
+      let modified_id_list = id_list;
+      modified_id_list.splice(selected, 1);
+      set_id_list(modified_id_list);
+      forceUpdate();
+      updateCookie();
+    }
+  }
+
   function handleQueryChange(event: any) {
     setQuery(event.target.value);
   }
@@ -51,7 +76,16 @@ const FreshSnowStations: React.FunctionComponent = () => {
     });
 
     if (stationId != undefined) {
-      setCustomContent(<SnowStation stationId={stationId}></SnowStation>);
+      let modified_id_list = id_list;
+      modified_id_list.splice(id_list.length - 1, 0, stationId);
+      set_id_list(modified_id_list);
+      forceUpdate();
+      updateCookie();
+    } else {
+      setCustomMessage(`"${query}" ei ole hyväksytty havaintoasema`)
+      setTimeout(function() {
+        setCustomMessage('Lisää valitsemasi havaintoasema. Voit poistaa havaintoasemia oikean yläkulman rastista. Muutoksesi tallenetaan evästeeseen.')
+      }, 2000);
     }
     event.preventDefault();
   }
@@ -73,23 +107,28 @@ const FreshSnowStations: React.FunctionComponent = () => {
                   <option key={index} value={item.label} />
                 )}
               </datalist>
-
-              <div className='searchControls'>
-                <button className='searchClear searchButton' onClick={() => { setQuery('') }}> <MdClear /> </button>
-                {' '}
-                <button type="submit" className='searchSubmit searchButton'><MdSearch /></button>
-              </div>
+                <button className='searchClear' onClick={() => { setQuery('') }}> <MdClear /> </button>
+                <div className='customMessage'>
+                  {customMessage}{' '}
+                  <button onClick={resetStations} type="button" className='clearCookie'>nollaa</button>
+                </div>
+                <div>
+                  <button type="submit" className='searchSubmit'> <AiOutlinePlusCircle></AiOutlinePlusCircle> </button>
+                </div>
             </form>
-
-            {customContent}
           </div>
         }
-        
+
+        {
+          id_list[selected]  !== 'custom'? 
+          <div className='removeButton' onClick={removeCurrent}> <MdClear></MdClear> </div>:
+          ''
+        }
         <div className='stationButton right' onClick={next}><IoIosArrowForward /></div>
         <div className='stationButton left' onClick={previous}><IoIosArrowBack /></div>
         <div className='stationIndicators'>
           {id_list.map((_item, index) => (
-            <div key={index} className={`stationIndicator ${index === selected? 'bigCircle' : 'smallCircle'}`}>{index == id_list.length -1? <AiOutlinePlus /> : '' }</div>
+            <div key={index} className={`stationIndicator ${index === selected? 'bigCircle' : 'smallCircle'}`}>{index == id_list.length -1? <MdSearch /> : '' }</div>
           ))}
         </div>
       </div>
