@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaHome, FaInfoCircle, FaCaretDown, FaCaretRight, FaMountain, FaSnowflake } from 'react-icons/fa';
-import { MdOutlineMenu, MdClose, MdKeyboardArrowRight } from 'react-icons/md';
+import { MdOutlineMenu, MdClose } from 'react-icons/md';
 import React, { useState } from 'react';
 
 const Navigation: React.FunctionComponent = () => {
