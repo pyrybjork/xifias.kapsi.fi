@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaHome, FaInfoCircle, FaCaretDown, FaCaretRight, FaMountain, FaSnowflake } from 'react-icons/fa';
-import { RiRadarLine } from 'react-icons/ri';
-import { MdOutlineMenu, MdClose } from 'react-icons/md';
+import { MdOutlineMenu, MdClose, MdKeyboardArrowRight } from 'react-icons/md';
 import React, { useState } from 'react';
 
 const Navigation: React.FunctionComponent = () => {
@@ -32,9 +31,8 @@ const Navigation: React.FunctionComponent = () => {
           <div className='dropdown' >
           {appsExpanded ? (
             <ul>
-              <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Fresh snow</Link></li>
-              <li onClick={close}><Link to="/radars"><RiRadarLine className="nav_icon" />  FMI Radars</Link></li>
-              <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Avalanche terrain maps</Link></li>
+              <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Putsku</Link></li>
+              <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Jyrkkyyskarttoja</Link></li>
           </ul>
           ) : null}
           </div>
@@ -51,9 +49,8 @@ const Navigation: React.FunctionComponent = () => {
               <div className='menu_dropdown' >
                 {appsExpanded ? (
                   <ul>
-                    <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Fresh snow</Link></li>
-                    <li onClick={close}><Link to="/radars"><RiRadarLine className="nav_icon" />  FMI Radars</Link></li>
-                    <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Avalanche terrain maps</Link></li>
+                    <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Putsku</Link></li>
+                    <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Jyrkkyyskarttoja</Link></li>
                   </ul>
                 ) : null}
               </div>
