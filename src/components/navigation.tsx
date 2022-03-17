@@ -1,35 +1,65 @@
 import { Link } from 'react-router-dom';
 import { FaHome, FaInfoCircle, FaCaretDown, FaCaretRight, FaMountain, FaSnowflake } from 'react-icons/fa';
 import { RiRadarLine } from 'react-icons/ri';
+import { MdOutlineMenu, MdClose } from 'react-icons/md';
 import React, { useState } from 'react';
 
 const Navigation: React.FunctionComponent = () => {
-  const [expanded, setExpanded] = useState(false);
+  const [menuExpanded, setMenuExpanded] = useState(false);
+  const [appsExpanded, setAppsExpanded] = useState(false);
 
   function close() {
-    setExpanded(false);
+    setAppsExpanded(false);
+    setMenuExpanded(false);
   }
 
-  function toggle() {
-    setExpanded(!expanded);
+  function toggleApps() {
+    setAppsExpanded(!appsExpanded);
+  }
+
+  function toggleMenu() {
+    setMenuExpanded(!menuExpanded);
   }
 
   return ( <nav className="navigation">
       <ul>
-        <li onClick={close}><Link to="/"><FaHome className="navIcon" /> Home</Link></li>
-        <li onClick={close}><Link to="/about"><FaInfoCircle className="navIcon" /> About</Link></li>
-        <li>
-          <div className='dropdown_button' tabIndex={0} onClick={toggle} /* onFocus={expand} onBlur={close} */>{expanded ? <FaCaretDown className="navIcon" /> : <FaCaretRight className="navIcon" />} Apps</div>
+        <li onClick={close} ><Link to="/"><FaHome className="home_icon" /></Link></li>
+        <li onClick={close} className='big_nav'><Link to="/about"><FaInfoCircle className="nav_icon" /> Info</Link></li>
+        <li className='big_nav'>
+
+          <div className='dropdown_button' tabIndex={0} onClick={toggleApps} /* onFocus={expand} onBlur={close} */>{appsExpanded ? <FaCaretDown className="nav_icon" /> : <FaCaretRight className="nav_icon" />} Sovellukset</div>
           
           <div className='dropdown' >
-          {expanded ? (
+          {appsExpanded ? (
             <ul>
-              <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="navIcon" />  Fresh snow</Link></li>
-              <li onClick={close}><Link to="/radars"><RiRadarLine className="navIcon" />  FMI Radars</Link></li>
-              <li onClick={close}><Link to="/avalanche"><FaMountain className="navIcon" />  Avalanche terrain maps</Link></li>
+              <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Fresh snow</Link></li>
+              <li onClick={close}><Link to="/radars"><RiRadarLine className="nav_icon" />  FMI Radars</Link></li>
+              <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Avalanche terrain maps</Link></li>
           </ul>
           ) : null}
           </div>
+        </li>
+
+        <li onClick={toggleMenu} className='menu_button'>{menuExpanded ? <MdClose/> : <MdOutlineMenu/>}</li>
+        <li className='small_nav'>
+          {menuExpanded ? (
+            <ul className='small_nav menu'>
+              <li onClick={close}><Link to="/about"><FaInfoCircle className="nav_icon" /> Info</Link></li>
+
+              <li onClick={toggleApps} className='dropdown_button'>{appsExpanded ? <FaCaretDown className="nav_icon" /> : <FaCaretRight className="nav_icon" />} Sovellukset</li>
+          
+              <div className='menu_dropdown' >
+                {appsExpanded ? (
+                  <ul>
+                    <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Fresh snow</Link></li>
+                    <li onClick={close}><Link to="/radars"><RiRadarLine className="nav_icon" />  FMI Radars</Link></li>
+                    <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Avalanche terrain maps</Link></li>
+                  </ul>
+                ) : null}
+              </div>
+
+            </ul>
+            ) : null}
         </li>
       </ul>
     </nav>

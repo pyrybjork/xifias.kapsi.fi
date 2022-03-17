@@ -8,8 +8,7 @@ body {
   z-index: 3;
 }
 
-.navigation ul {
-  list-style-type: none;
+.navigation > ul {
   margin: 0;
   padding: 10px;
   overflow: hidden;
@@ -17,6 +16,11 @@ body {
   text-align: left;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
   height: 40px;
+}
+
+.navigation ul {
+  list-style-type: none;
+  padding: 10px;
 }
 
 .navigation li {
@@ -30,8 +34,13 @@ body {
   color: rgb(255, 255, 255);
 }
 
-.navIcon {
+.nav_icon {
   margin-bottom: -2px;
+}
+
+.home_icon {
+  font-size: xx-large;
+  margin-top: -2px;
 }
 
 .dropdown {
@@ -59,4 +68,54 @@ body {
 .dropdown_button {
   font-size: 20px;
   cursor: pointer;
+}
+
+.menu_button {
+  float: right !important;
+  font-size: x-large;
+  cursor: pointer;
+  display: none;
+}
+
+.small_nav {
+  display: none;
+  overflow: hidden;
+}
+
+.small_nav > ul {
+  position: absolute;
+  background-color: #333536;
+  top: 60px;
+  width: calc(100% - 20px);
+  left: 0;
+  border-radius: 0 0 15px 15px;
+  z-index: 2;
+  height: fit-content;
+}
+
+.small_nav > ul > li {
+  float: none;
+}
+
+.menu_dropdown > ul {
+  background-color: transparent;
+  height: fit-content;
+  margin-left: 15px;
+  margin-top: -10px;
+}
+
+.menu_dropdown li {
+  float: none;
+}
+
+@media screen and (max-width: 400px) {
+  .small_nav {
+    display: block
+  }
+  .menu_button {
+    display: block;
+  }
+  .big_nav {
+    display: none
+  }
 }
