@@ -2,7 +2,7 @@ import React, { useState, useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { FaMap } from 'react-icons/fa';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { MdClear, MdSearch } from 'react-icons/md';
+import { MdClear, MdSearch, MdRefresh } from 'react-icons/md';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import "./fresh_snow_stations.css";
 import fmisid from '../data/fmisid'
@@ -110,7 +110,7 @@ const FreshSnowStations: React.FunctionComponent = () => {
                 <button className='searchClear' onClick={() => { setQuery('') }}> <MdClear /> </button>
                 <div className='customMessage'>
                   {customMessage}{' '}
-                  <button onClick={resetStations} type="button" className='clearCookie'>nollaa</button>
+                  <button onClick={resetStations} type="button" className='clearCookie'> <MdRefresh />nollaa</button>
                 </div>
                 <div>
                   <button type="submit" className='searchSubmit'> <AiOutlinePlusCircle></AiOutlinePlusCircle> </button>
