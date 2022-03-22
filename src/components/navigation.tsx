@@ -32,7 +32,7 @@ const Navigation: React.FunctionComponent = () => {
           {appsExpanded ? (
             <ul>
               <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Putsku</Link></li>
-              <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Jyrkkyyskarttoja</Link></li>
+              <li onClick={close}><Link to="/avalanche_terrain_maps"><FaMountain className="nav_icon" />  Jyrkkyyskarttoja</Link></li>
           </ul>
           ) : null}
           </div>
@@ -50,7 +50,7 @@ const Navigation: React.FunctionComponent = () => {
                 {appsExpanded ? (
                   <ul>
                     <li onClick={close}><Link to="/freshsnow"><FaSnowflake className="nav_icon" />  Putsku</Link></li>
-                    <li onClick={close}><Link to="/avalanche"><FaMountain className="nav_icon" />  Jyrkkyyskarttoja</Link></li>
+                    <li onClick={close}><Link to="/avalanche_terrain_maps"><FaMountain className="nav_icon" />  Jyrkkyyskarttoja</Link></li>
                   </ul>
                 ) : null}
               </div>

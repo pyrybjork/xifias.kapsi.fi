@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import RainMap from "../components/rain_map";
 
-const FreshSnow: React.FunctionComponent = () => {
+const FreshSnowMap: React.FunctionComponent = () => {
   const navigate = useNavigate();
 
   return (
@@ -16,4 +16,4 @@ const FreshSnow: React.FunctionComponent = () => {
   );
 };
 
-export default FreshSnow;
+export default FreshSnowMap;
