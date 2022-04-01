@@ -86,12 +86,13 @@ const RainMap: React.FunctionComponent = () => {
 
     return ( 
         <div>
-            <MapContainer className='rain_map' crs={crs} bounds={[[50, 20], [80, 30]]} center={[67, 25]} maxZoom={8} zoom={3}>
+            <MapContainer className='rain_map' crs={crs} bounds={[[50, 20], [80, 30]]} center={[67, 25]} maxZoom={6} zoom={3}>
                 <LayersControl>
                     <LayersControl.BaseLayer checked name="MML: Peruskartta">
                         <TileLayer
                             attribution='Kartat: MML, Tutkat: FMI'
                             url="https://tiles.kartat.kapsi.fi/peruskartta_3067/{z}/{x}/{y}.jpg"
+                            maxZoom={6}
                         />
                     </LayersControl.BaseLayer>
                     {
