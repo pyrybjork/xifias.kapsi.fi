@@ -21,6 +21,44 @@ const FreshSnowStations: React.FunctionComponent = () => {
 
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
+  const [touchStart, setTouchStart] = React.useState(0);
+  const [touchEnd, setTouchEnd] = React.useState(0);
+  const [swipeClass, setSwipeClass] = React.useState('');
+
+  function handleTouchStart(e: any) {
+      setTouchStart(e.targetTouches[0].clientX);
+  }
+
+  function handleTouchMove(e: any) {
+    var touchMove = e.targetTouches[0].clientX;
+
+    if (touchStart - touchMove > 90) {
+      setSwipeClass('swipeLeft');
+    }
+
+    else if (touchStart - touchMove < -90) {
+      setSwipeClass('swipeRight');
+    }
+
+    else {
+      setSwipeClass('swipeNone');
+    }
+
+    if (touchStart - touchMove > 130) {
+      setTouchStart(touchMove);
+      previous();
+    }
+
+    else if (touchStart - touchMove < -130) {
+      setTouchStart(touchMove);
+      next();
+    }
+  }
+
+  function handleTouchEnd() {
+    setSwipeClass('swipeNone');
+  }
+
   var options: any = [];
 
   Object.entries(fmisid).forEach((key, index) => {
@@ -97,11 +135,11 @@ const FreshSnowStations: React.FunctionComponent = () => {
   }
 
   return (
-    <div className="fresh_snow_stations">
+    <div className="freshSnowStations">
       <div className="card">
         <Link className="link" to="/freshsnow/map"><FaMap className="nav_icon" /> Sadetutkat </Link>
       </div>
-      <div className='stationCard'>
+      <div className={`stationCard ${swipeClass}`} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} onMouseDown={handleTouchStart} onMouseMove={handleTouchMove} onMouseUp={handleTouchEnd}>
         {id_list[selected] !== 'custom' ? 
           <SnowStation stationId={id_list[selected]}></SnowStation> :
           <div className="customStation">

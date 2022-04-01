@@ -1,3 +1,7 @@
+.freshSnowStations {
+    overflow: hidden;
+}
+
 .stationCard {
     background-color: whitesmoke;
     color: black;
@@ -153,4 +157,12 @@
     width: 100%;
     max-width: 70vh;
     border-radius: 20px;
+}
+
+.swipeRight {
+    transform: rotate3d(2, 2, 0, 10deg);
+}
+
+.swipeLeft {
+    transform: rotate3d(-2, 2, 0, 10deg);
 }
