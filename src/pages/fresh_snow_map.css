@@ -50,19 +50,52 @@
 }
 
 .back_button {
-    position: fixed;
     top: 70px;
+    background-color: white;
+    padding: 5px 7px 12px 7px;
+}
+
+.control_button {
+    cursor: pointer;
+    position: fixed;
     right: 10px;
     z-index: 2;
     border: 2px solid rgba(0,0,0,0.2);
     background-clip: padding-box;
     border-radius: 4px;
     background-color: white;
-    padding: 5px 5px 12px 7px;
     color: black;
     font-size: x-large;
 }
 
+.toggle_legend {
+    top: 120px;
+    background-color: white;
+    padding: 2px 9px 2px 9px;
+}
+
 .leaflet-control-layers {
     display: none;
+}
+
+.legend {
+    position: fixed;
+    top: 70px;
+    right: 60px;
+    z-index: 1;
+    width: fit-content;
+    height: fit-content;
+    max-height: calc(100vh - 260px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: white;
+    background-clip: padding-box;
+    border-radius: 4px;
+    padding: 5px;
+    border: 2px solid rgba(0,0,0,0.2);
+}
+
+.legend > img {
+    border-radius: 2px;
+    margin-left: -6px;
 }

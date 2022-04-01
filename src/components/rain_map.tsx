@@ -8,6 +8,7 @@ import * as L from 'leaflet';
 
 const RainMap: React.FunctionComponent = () => {
     const [selected, setSelected] = useState(12);
+    const [legendVisible, setLegendVisible] = useState(false);
 
     var radarTime = new Date();
     radarTime.setMinutes(radarTime.getMinutes() -10);
@@ -34,7 +35,7 @@ const RainMap: React.FunctionComponent = () => {
     var i;
 
     for (i = 0; i < 12; i++) {
-        wmsLayers.push({
+        wmsLayers.unshift({
             info: `Ennuste ${forecastTime.toLocaleString()}`,
             time: forecastTime.toISOString(),
             options: {...options, layers: 'Weather:precipitation-forecast', time: forecastTime.toISOString()}
@@ -78,9 +79,14 @@ const RainMap: React.FunctionComponent = () => {
         }
     }
 
+    //toggle legend visibility on click of legend icon
+    function toggleLegend() {
+        setLegendVisible(!legendVisible);
+    }
+
     return ( 
         <div>
-            <MapContainer className='rain_map' crs={crs} bounds={[[50, 20], [80, 30]]} center={[67, 25]} zoom={3}>
+            <MapContainer className='rain_map' crs={crs} bounds={[[50, 20], [80, 30]]} center={[67, 25]} maxZoom={8} zoom={3}>
                 <LayersControl>
                     <LayersControl.BaseLayer checked name="MML: Peruskartta">
                         <TileLayer
@@ -103,6 +109,12 @@ const RainMap: React.FunctionComponent = () => {
                 <div>{wmsLayers[selected].info}</div>
                 <div onClick={next} className='button'><FaArrowRight className='icon'/></div>
             </div>
+            <div className='control_button toggle_legend' onClick={toggleLegend}>
+                <MdLegendToggle className='icon'/>
+            </div>
+            {legendVisible && <div className='legend'>
+                <img src={`https://openwms.fmi.fi/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=${wmsLayers[selected].options.layers}`}/>
+            </div>}
         </div>
     )
 };

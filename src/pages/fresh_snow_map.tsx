@@ -11,7 +11,7 @@ const FreshSnowMap: React.FunctionComponent = () => {
   return (
     <div className="fresh_snow_map">
       <RainMap />
-      <div className="back_button button" onClick={() => navigate('/freshsnow')}><MdClear /></div>
+      <div className="back_button control_button" onClick={() => navigate('/freshsnow')}><MdClear /></div>
     </div> 
   );
 };
