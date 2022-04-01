@@ -4,6 +4,15 @@ body {
   background-color: #232529;
 }
 
+.footer {
+  padding: 10px;
+}
+
+.footer > hr {
+  color: whitesmoke;
+  border-radius: 2px;
+}
+
 .navigation {
   z-index: 4;
 }
@@ -108,7 +117,7 @@ body {
   float: none;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .small_nav {
     display: block
   }
