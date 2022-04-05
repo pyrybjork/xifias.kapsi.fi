@@ -22,7 +22,6 @@ const FreshSnowStations: React.FunctionComponent = () => {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   const [touchStart, setTouchStart] = React.useState(0);
-  const [touchEnd, setTouchEnd] = React.useState(0);
   const [swipeClass, setSwipeClass] = React.useState('');
 
   function handleTouchStart(e: any) {
@@ -118,7 +117,7 @@ const FreshSnowStations: React.FunctionComponent = () => {
       return fmisid[keyTyped] === query;
     });
 
-    if (stationId != undefined) {
+    if (stationId !== undefined) {
       let modified_id_list = id_list;
       modified_id_list.splice(id_list.length - 1, 0, stationId);
       set_id_list(modified_id_list);
@@ -139,7 +138,7 @@ const FreshSnowStations: React.FunctionComponent = () => {
       <div className="card">
         <Link className="link" to="/freshsnow/map"><FaMap className="nav_icon" /> Sadetutkat </Link>
       </div>
-      <div className={`stationCard ${swipeClass}`} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} onMouseDown={handleTouchStart} onMouseMove={handleTouchMove} onMouseUp={handleTouchEnd}>
+      <div className={`stationCard ${swipeClass}`} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
         {id_list[selected] !== 'custom' ? 
           <SnowStation stationId={id_list[selected]}></SnowStation> :
           <div className="customStation">
@@ -172,7 +171,7 @@ const FreshSnowStations: React.FunctionComponent = () => {
         <div className='stationButton left' onClick={previous}><IoIosArrowBack /></div>
         <div className='stationIndicators'>
           {id_list.map((_item, index) => (
-            <div key={index} className={`stationIndicator ${index === selected? 'bigCircle' : 'smallCircle'}`}>{index == id_list.length -1? <MdSearch /> : '' }</div>
+            <div key={index} className={`stationIndicator ${index === selected? 'bigCircle' : 'smallCircle'}`}>{index === id_list.length -1? <MdSearch /> : '' }</div>
           ))}
         </div>
       </div>
@@ -194,7 +193,7 @@ const FreshSnowStations: React.FunctionComponent = () => {
       </div>
 
       <div className='imageCard' id='met.no_rainmap'>
-        <img src="https://api.met.no/weatherapi/radar/2.0/?type=5level_reflectivity&amp;area=nordic&amp;content=animation" alt="met no radar image" />
+        <img src="https://api.met.no/weatherapi/radar/2.0/?type=5level_reflectivity&amp;area=nordic&amp;content=animation" alt="met.no radar" />
       </div>
     </div> 
   );
