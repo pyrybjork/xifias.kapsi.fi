@@ -14,7 +14,7 @@ const SnowStationElementRow: React.FunctionComponent<StationElementRowProps> = (
     return (
         <div>
             <h5>{time.toLocaleDateString()}</h5>
-            Lumensyvyys{'\u00A0'}{snow.slice(0, -2)}cm{difference === 0? '' : `\u00A0${difference > 0? '+': ''}${difference}`}, Lämpötila{'\u00A0'}{tday === 'NaN'? '[ei\u00A0saatavilla]' : `${tday}°C`}
+            Lumensyvyys{'\u00A0'}{snow === 'NaN'? '[ei\u00A0saatavilla]' : `${snow.slice(0, -2)}cm${difference === 0? '' : `\u00A0${difference > 0? '+': ''}${difference}`}`}, Lämpötila{'\u00A0'}{tday === 'NaN'? '[ei\u00A0saatavilla]' : `${tday}°C`}
         </div>
     )
 };

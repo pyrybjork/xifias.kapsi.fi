@@ -46,8 +46,8 @@ const SnowStation: React.FunctionComponent<StationProps> = ({stationId}: Station
                         stationData.push({
                             time: time,
                             date: date.toLocaleDateString(),
-                            snow: snow === null? '': snow,
-                            temperature: temperature === null? '': temperature,
+                            snow: snow === null? 'NaN': snow,
+                            temperature: temperature === null? 'NaN': temperature,
                         });
                     }
                 }

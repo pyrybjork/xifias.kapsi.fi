@@ -1,11 +1,11 @@
 import React, { useState, useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { FaMap } from 'react-icons/fa';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward, IoIosSnow } from 'react-icons/io';
 import { MdClear, MdSearch, MdRefresh, MdInfoOutline } from 'react-icons/md';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import "./fresh_snow_stations.css";
-import fmisid from '../data/fmisid'
+import { fmisidSnow, fmisidFull } from '../data/fmisid'
 
 import SnowStation from "../components/snow_station";
 import SnowChart from "../components/snow_chart";
@@ -15,6 +15,7 @@ const FreshSnowStations: React.FunctionComponent = () => {
   const [query, setQuery] = useState('');
   const [customMessage, setCustomMessage] = useState('Lisää valitsemasi havaintoasema.');
   const [infoExpanded, setInfoExpanded] = useState(false);
+  const [searchAll, setSearchAll] = useState(false);
   
   const stations  = localStorage.getItem( 'stations' ) || ['101885', '107081', '101950', '101914', '101990', '101987', 'custom'].join(',');
   
@@ -32,17 +33,11 @@ const FreshSnowStations: React.FunctionComponent = () => {
   function handleTouchMove(e: any) {
     var touchMove = e.targetTouches[0].clientX;
 
-    if (touchStart - touchMove > 90) {
-      setSwipeClass('swipeLeft');
-    }
+    if (touchStart - touchMove > 90) { setSwipeClass('swipeLeft'); }
 
-    else if (touchStart - touchMove < -90) {
-      setSwipeClass('swipeRight');
-    }
+    else if (touchStart - touchMove < -90) { setSwipeClass('swipeRight'); }
 
-    else {
-      setSwipeClass('swipeNone');
-    }
+    else { setSwipeClass('swipeNone'); }
 
     if (touchStart - touchMove > 130) {
       setTouchStart(touchMove);
@@ -58,12 +53,6 @@ const FreshSnowStations: React.FunctionComponent = () => {
   function handleTouchEnd() {
     setSwipeClass('swipeNone');
   }
-
-  var options: any = [];
-
-  Object.entries(fmisid).forEach((key, index) => {
-    options.push({value: key[0], label: key[1]});
-  })
 
   function updateCookie() {
     localStorage.setItem( 'stations', id_list.join(','))
@@ -113,10 +102,7 @@ const FreshSnowStations: React.FunctionComponent = () => {
   }
 
   function handleSubmit(event: any) {
-    const stationId = Object.keys(fmisid).find(key => {
-      const keyTyped = Number.parseInt(key) as keyof typeof fmisid;
-      return fmisid[keyTyped] === query;
-    });
+    let stationId = fmisidFull.find(station => station.name === query)?.fmisid;
 
     if (stationId !== undefined) {
       let modified_id_list = id_list;
@@ -134,33 +120,50 @@ const FreshSnowStations: React.FunctionComponent = () => {
     event.preventDefault();
   }
 
+  function datalistMap(item: any, index: any) {
+    return <option key={index} value={item.name} label={`${fmisidSnow.some(station => station.fmisid === item.fmisid)? '❄' : ''} ${item.name}`}/>
+  }
+
   return (
     <div className="freshSnowStations">
+
       <div className="card">
         <Link className="link" to="/freshsnow/map"><FaMap className="nav_icon" /> Sadetutkat </Link>
       </div>
+
       <div className={`stationCard ${swipeClass}`} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
         {id_list[selected] !== 'custom' ? 
           <SnowStation stationId={id_list[selected]}></SnowStation> :
+
           <div className="customStation">
             <form className='customSearch' onSubmit={handleSubmit}>
+
               <input className='searchBar' type="text" list="data" value={query} onChange={handleQueryChange}/>
 
               <datalist id="data">
-                {options.map((item: any, index: any) =>
-                  <option key={index} value={item.label} />
-                )}
+                {searchAll == true? fmisidFull.map(datalistMap) : fmisidSnow.map(datalistMap)}
               </datalist>
-                <button className='searchClear' onClick={() => { setQuery('') }}> <MdClear /> </button>
-                <div className='customMessage'>
-                  {customMessage}{' '}
-                  <button onClick={resetStations} type="button" className='clearCookie'> <MdRefresh />nollaa muutokset</button>
-                </div>
-                <div>
-                  <button type="submit" className='searchSubmit'> <AiOutlinePlusCircle></AiOutlinePlusCircle> </button>
-                </div>
+            
+              <button className='searchClear searchControl' onClick={() => { setQuery('') }}> <MdClear /> </button>
+
+              <button type="button" className={`searchToggle searchControl ${searchAll? 'searchToggleOff' : 'searchToggleOn'}`} onClick={() => { setSearchAll(!searchAll)}}> <IoIosSnow /> </button>
+              
+              <div className='customMessage'>
+                {customMessage}{' '}
+                <button onClick={resetStations} type="button" className='clearCookie'> <MdRefresh />nollaa muutokset</button>
+              </div>
+
+
+
+              <div>
+                <button type="submit" className='searchSubmit'> <AiOutlinePlusCircle></AiOutlinePlusCircle> </button>
+              </div>
+
+              
+
             </form>
           </div>
+
         }
           <div className='topButton infoButton' onClick={toggleInfo}> <MdInfoOutline /> </div>
         {

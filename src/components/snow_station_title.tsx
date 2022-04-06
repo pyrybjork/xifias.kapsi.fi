@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import fmisid from '../data/fmisid'
+import {fmisidFull} from '../data/fmisid'
 
 interface StationProps {
     stationId: string,
@@ -8,17 +8,14 @@ interface StationProps {
 }
 
 const SnowStationTitle: React.FunctionComponent<StationProps> = ({stationId, oldSnow}: StationProps) => {
-    const parser = new DOMParser();
-
-    const stationIdTyped = Number.parseInt(stationId) as keyof typeof fmisid;
-
     const [snow, setSnow] = useState('NaN');
     const [temp, setTemp] = useState('NaN');
     const [lastStationId, setLastStationId] = useState('');
 
-    var starttime = new Date()
-
     useEffect(() => { 
+        const parser = new DOMParser();
+        var starttime = new Date()
+
         if (stationId !== lastStationId) {
             setLastStationId(stationId);
             axios.get('https://opendata.fmi.fi/wfs', {
@@ -45,10 +42,10 @@ const SnowStationTitle: React.FunctionComponent<StationProps> = ({stationId, old
             })
             
         }
-    });
+    }, [stationId, lastStationId]);
 
     return (
-        <h3 className='stationTitle'>{fmisid[stationIdTyped]} {snow}cm{'\u00A0|\u00A0'}{Number.parseInt(snow) - oldSnow >= 0? '+': ''}{Number.parseInt(snow) - oldSnow}cm{'\u00A0|\u00A0'}{temp}°C</h3>
+        <h3 className='stationTitle'>{fmisidFull.find(station => station.fmisid === stationId)?.name} {snow === 'NaN'? '[ei\u00A0saatavilla]' : `${snow}cm${'\u00A0|\u00A0'}${Number.parseInt(snow) - oldSnow >= 0? '+': ''}${Number.parseInt(snow) - oldSnow}cm`}{'\u00A0|\u00A0'}{temp}°C</h3>
     )
 };
 

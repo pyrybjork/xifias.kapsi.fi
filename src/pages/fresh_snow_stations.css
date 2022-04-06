@@ -102,22 +102,49 @@
     border: 0;
     border-bottom: 2px solid #1a1e24;
     color: #1a1e24;
-    width: calc(100% - 110px);
+    width: calc(100% - 145px);
     position: absolute;
     left: 45px;
     top: 20px;
 }
 
-.searchClear {
+.searchControl {
     font-size: x-large;
     color: #1a1e24;
     border: 0;
     background-color: transparent;
     position: absolute;
+}
+
+.searchClear {
     right: 6px;
     top: 16px;
-
 }
+
+.searchToggle {
+    right: 32px;
+    top: 16px;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.searchToggleOn {
+    background-color: aqua;
+}
+
+.searchToggleOff {
+    background-color: gray;
+}
+
+
+.searchToggleOn > * {
+    margin-left: 15px;
+}
+
+.searchToggleOff > * {
+    margin-right: 15px;
+}
+
 
 .searchSubmit {
     font-size: 60px;
