@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import SnowStationElement from "./snow_station_element";
 import SnowStationTitle from "./snow_station_title";
-import SnowChart from "./snow_chart";
 
 interface StationProps {
     stationId: string
@@ -69,7 +68,6 @@ const SnowStation: React.FunctionComponent<StationProps> = ({stationId}: Station
         <div className="station">
             <SnowStationTitle stationId={stationId} oldSnow={oldSnow}/>
             <SnowStationElement stationData={stationDetailsData}></SnowStationElement>
-            {/* <SnowChart stationData={stationDetailsData}></SnowChart> */}
         </div>
     )
 };

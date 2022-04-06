@@ -142,8 +142,17 @@
 }
 
 .infoCard {
+    margin: 0 10px; 
     margin-top: 30px;
     padding: 20px;
+    width: calc(100% - 60px);
+}
+
+.chartCard {
+    padding: 20px 0px;
+    width: calc(100% - 20px);
+    margin: 0 10px; 
+    margin-top: 30px;
 }
 
 .imageCard {

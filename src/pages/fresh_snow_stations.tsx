@@ -8,6 +8,7 @@ import "./fresh_snow_stations.css";
 import fmisid from '../data/fmisid'
 
 import SnowStation from "../components/snow_station";
+import SnowChart from "../components/snow_chart";
 
 const FreshSnowStations: React.FunctionComponent = () => {
   const [selected, setSelected] = useState(0);
@@ -186,6 +187,13 @@ const FreshSnowStations: React.FunctionComponent = () => {
           <div className='topButton removeButton' onClick={toggleInfo}> <MdClear /> </div>
         </div>:
         ''
+      }
+
+      {id_list[selected] !== 'custom' ? 
+        <div className='stationCard chartCard'> 
+          <SnowChart station={id_list[selected]}></SnowChart>
+        </div> :
+      ''
       }
 
       <div>
