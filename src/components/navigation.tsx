@@ -22,8 +22,8 @@ const Navigation: React.FunctionComponent = () => {
 
   return ( <nav className="navigation">
       <ul>
-        <li onClick={close} ><Link to="/"><FaHome className="home_icon" /></Link></li>
-        <li onClick={close} className='big_nav'><Link to="/aboutme"><FaInfoCircle className="nav_icon" /> Tietoa minusta</Link></li>
+        <li className='float_left' onClick={close} ><Link to="/"><b>Pyry Björk</b></Link></li>
+        {/* <li onClick={close} className='big_nav'><Link to="/aboutme"><FaInfoCircle className="nav_icon" /> Tietoa minusta</Link></li> */}
         <li className='big_nav'>
 
           <div className='dropdown_button' tabIndex={0} onClick={toggleApps} /* onFocus={expand} onBlur={close} */>{appsExpanded ? <FaCaretDown className="nav_icon" /> : <FaCaretRight className="nav_icon" />} Sovellukset</div>
@@ -39,10 +39,11 @@ const Navigation: React.FunctionComponent = () => {
         </li>
 
         <li onClick={toggleMenu} className='menu_button'>{menuExpanded ? <MdClose/> : <MdOutlineMenu/>}</li>
+        
         <li className='small_nav'>
           {menuExpanded ? (
             <ul className='small_nav menu'>
-              <li onClick={close}><Link to="/aboutme"><FaInfoCircle className="nav_icon" /> Tietoa minusta</Link></li>
+              {/* <li onClick={close}><Link to="/aboutme"><FaInfoCircle className="nav_icon" /> Tietoa minusta</Link></li> */}
 
               <li onClick={toggleApps} className='dropdown_button'>{appsExpanded ? <FaCaretDown className="nav_icon" /> : <FaCaretRight className="nav_icon" />} Sovellukset</li>
           
@@ -59,6 +60,7 @@ const Navigation: React.FunctionComponent = () => {
             ) : null}
         </li>
       </ul>
+      <hr className='nav_hr'/>
     </nav>
   )};
 
