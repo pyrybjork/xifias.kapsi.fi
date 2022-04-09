@@ -2,6 +2,7 @@ import React, { useState, useEffect, FunctionComponent } from 'react';
 import { ComposedChart, Line, ResponsiveContainer, XAxis, YAxis, Legend, Tooltip } from 'recharts';
 import { getStationHourly } from "./fmiRequests";
 import { FiArrowUp, FiArrowUpRight, FiArrowRight, FiArrowDownRight, FiArrowDown, FiArrowDownLeft, FiArrowLeft, FiArrowUpLeft } from 'react-icons/fi';
+import { BsArrowUpCircleFill, BsArrowUpRightCircleFill, BsArrowRightCircleFill, BsArrowDownRightCircleFill, BsArrowDownCircleFill, BsArrowDownLeftCircleFill, BsArrowLeftCircleFill, BsArrowUpLeftCircleFill } from 'react-icons/bs';
 
 interface SnowChartProps {
     station: string
@@ -63,6 +64,35 @@ const SnowChart: React.FunctionComponent<SnowChartProps> = ({station}: SnowChart
         }
     }
 
+    const ActiveWindDirectionDot: FunctionComponent<any> = (props: any) => {
+        const { cx, cy, payload, size } = props;
+        let degrees = payload.windDirection;
+
+        let color = '#919191';
+        let x = cx - size / 2;
+        let y = cy - size / 2;
+
+        if (degrees >= 337.5 || degrees < 22.5) { // N
+            return <BsArrowDownCircleFill color={color} x={x} y={y} size={size}/>;
+        } else if (degrees >= 22.5 && degrees < 67.5) { // NE
+            return <BsArrowDownLeftCircleFill color={color} x={x} y={y} size={size}/>;
+        } else if (degrees >= 67.5 && degrees < 112.5) { // E
+            return <BsArrowLeftCircleFill color={color} x={x } y={y} size={size}/>;
+        } else if (degrees >= 112.5 && degrees < 157.5) { // SE
+            return <BsArrowUpLeftCircleFill color={color} x={x } y={y} size={size}/>;
+        } else if (degrees >= 157.5 && degrees < 202.5) { // S
+            return <BsArrowUpCircleFill color={color} x={x} y={y} size={size}/>;
+        } else if (degrees >= 202.5 && degrees < 247.5) { // SW
+            return <BsArrowUpRightCircleFill color={color} x={x} y={y} size={size}/>;
+        } else if (degrees >= 247.5 && degrees < 292.5) { // W
+            return <BsArrowRightCircleFill color={color} x={x} y={y} size={size}/>;
+        } else if (degrees >= 292.5 && degrees < 337.5) { // NW
+            return <BsArrowDownRightCircleFill color={color} x={x} y={y} size={size}/>;
+        } else {
+            return <></>
+        }
+    }
+
     const WindDirectionDot: FunctionComponent<any> = (props: any) => {
         const { cx, cy, payload, size } = props;
         let degrees = payload.windDirection;
@@ -100,7 +130,7 @@ const SnowChart: React.FunctionComponent<SnowChartProps> = ({station}: SnowChart
                 <YAxis yAxisId="speed" orientation="right" type='number' unit='m/s' ticks={[0, 5, 10, 15, 20, 25, 30]}/>
                 <Line yAxisId="temp" type="monotone" dataKey="temperature" stroke="#f57e42" dot={false}/>
                 <Line yAxisId="speed" type="monotone" dataKey="windGust" strokeDasharray="3 3" stroke="#00d10e" dot={false}/>
-                <Line yAxisId="speed" type="monotone" dataKey="windSpeed" stroke="#29a6ff" dot={<WindDirectionDot size={15}/>} activeDot={<WindDirectionDot size={25}/>}/>
+                <Line yAxisId="speed" type="monotone" dataKey="windSpeed" stroke="#29a6ff" dot={<WindDirectionDot size={15}/>} activeDot={<ActiveWindDirectionDot size={20}/>}/>
                 <Tooltip formatter={tooltipFormatter} labelFormatter={(date) => date.toLocaleString()} />
                 <Legend formatter={legendFormatter} />
             </ComposedChart>
