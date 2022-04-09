@@ -17,6 +17,7 @@ interface hourlyStatioData {
     timeObject: Date;
     temperature: string;
     windSpeed: string;
+    windGust: string;
     windDirection: string;
 }
 
@@ -100,7 +101,7 @@ export async function getStationHourly(stationId: string): Promise<hourlyStatioD
     const parser = new DOMParser();
 
     var starttime = new Date()
-    starttime.setDate(starttime.getDate() - 5);
+    starttime.setDate(starttime.getDate() - 1);
 
     return axios.get('https://opendata.fmi.fi/wfs', {
         params: {
@@ -110,13 +111,13 @@ export async function getStationHourly(stationId: string): Promise<hourlyStatioD
             storedquery_id: 'fmi::observations::weather::hourly::simple',
             fmisid: stationId,
             starttime: starttime.toISOString(),
-            parameters: 'TA_PT1H_AVG,WS_PT1H_AVG,WD_PT1H_AVG'
+            parameters: 'TA_PT1H_AVG,TA_PT1H_MAX,WS_PT1H_AVG,WD_PT1H_AVG'
         }
     }).then(function (response) {
         var xmlDoc = parser.parseFromString(response.data, "text/xml");
         var stationData: hourlyStatioData[] = [];
         var x = xmlDoc.getElementsByTagName("BsWfs:BsWfsElement");
-        for (var i = 0; i < x.length; i = i + 3) {
+        for (var i = 0; i < x.length; i = i + 4) {
             const time = x[i].childNodes[3].childNodes[0].nodeValue;
 
             if (time !== undefined && time !== null) {
@@ -124,13 +125,15 @@ export async function getStationHourly(stationId: string): Promise<hourlyStatioD
 
                 const temperature = x[i].childNodes[7].childNodes[0].nodeValue;
                 const windSpeed = x[i + 1].childNodes[7].childNodes[0].nodeValue;
-                const windDirection = x[i + 2].childNodes[7].childNodes[0].nodeValue;
+                const windGust = x[i + 2].childNodes[7].childNodes[0].nodeValue;
+                const windDirection = x[i + 3].childNodes[7].childNodes[0].nodeValue;
 
                 stationData.push({
                     time: time,
                     timeObject: date,
                     temperature: temperature === null? '': temperature,
                     windSpeed: windSpeed === null? '': windSpeed,
+                    windGust: windGust === null? '': windGust,
                     windDirection: windDirection === null? '': windDirection,
                 });
             }
