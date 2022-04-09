@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaHome, FaInfoCircle, FaCaretDown, FaCaretRight, FaMountain, FaSnowflake } from 'react-icons/fa';
+import { FaCaretDown, FaCaretRight, FaMountain, FaSnowflake } from 'react-icons/fa';
 import { MdOutlineMenu, MdClose } from 'react-icons/md';
 import React, { useState } from 'react';
 
